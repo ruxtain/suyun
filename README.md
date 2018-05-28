@@ -1,1 +1,23 @@
-# test
+suyun
+======
+
+Why this is called 'suyun'? What does it mean? I wrote this spider because one of my former colleagues asked me to. And her name is suyun. 
+
+# How it works
+
+It's based on scrapy and a proxy pool named [proxy_pool](https://github.com/jhao104/proxy_pool). It runs the proxy pool locally to get free proxies and feed it to the spider through an API.
+
+# Try it out
+
+```
+# First of one, make sure you get the proxy_pool running
+# Then you need set up the database in settings.py
+MONGO_URI = 'mongodb://localhost:27017'
+MONGO_DATABASE = 'suyun'
+# Run it in commandline
+scrapy crawl amazon
+# After it's done, you can output a spreadsheet
+python cook.py
+```
+
+This spider runs relatively fast and it's completely free.
