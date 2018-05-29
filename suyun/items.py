@@ -67,19 +67,19 @@ def get_field_ranks(value):
 
 def take_second(value):
     if len(value) >= 2:
-        return value[1]
+        return value[1].replace(',', '')
     else:
         return ''
 
 def take_thrid(value):
     if len(value) >= 3:
-        return value[2]
+        return value[2].replace(',', '')
     else:
         return ''
 
 def take_forth(value):
     if len(value) >= 4:
-        return value[3]
+        return value[3].replace(',', '')
     else:
         return ''
 

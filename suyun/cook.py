@@ -4,10 +4,13 @@ from openpyxl import Workbook
 import pymongo
 from openpyxl.drawing.image import Image
 import os
+import settings
 
 def get_cursor():
-    client = pymongo.MongoClient()
-    return client.suyun.scrapy_items.find()
+    client = pymongo.MongoClient(settings.MONGO_URI)
+    db = client[settings.MONGO_DATABASE]
+    collection = db[settings.MONGO_COLLECTION]
+    return collection.find()
 
 def make_xlsx(cursor):
     '''
@@ -36,8 +39,8 @@ def make_xlsx(cursor):
 
     wb = Workbook()
     ws = wb.active
-    ws.title = "竞争对手调查 - Michael Tan"
-    ws.append(['图片', 'ASIN', 'URL', '价格','标题', '上线日期', '大类目', '大类目排名', '小类目 1', '小类目排名 1', '小类目 2', '小类目排名 2', '小类目 3', '小类目排名 3', 'Review', 'Star', 'FBA'])
+    ws.title = "Competitor ASIN Data - Michael Tan"
+    ws.append(['Image', 'ASIN', 'URL', 'Price','Title', 'Date', 'Big Category', 'Big Rank', 'Small Category 1', 'Small Rank 1', 'Small Category 2', 'Small Rank 2', 'Small Category 3', 'Small Rank 3', 'Review', 'Star', 'FBA'])
     i = 2
     for item in cursor:
         ws.append([
@@ -69,7 +72,7 @@ def make_xlsx(cursor):
     ws.column_dimensions["I"].width = 15
     ws.column_dimensions["K"].width = 15
     ws.column_dimensions["M"].width = 15
-    filename = '{} 店铺数据.xlsx'.format(brand)
+    filename = '{} Competitor Data.xlsx'.format(brand)
     wb.save(filename=filename)
     os.startfile(filename)
 

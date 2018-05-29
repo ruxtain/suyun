@@ -75,6 +75,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 MONGO_URI = 'mongodb://localhost:27017'
 MONGO_DATABASE = 'suyun'
+MONGO_COLLECTION = 'scrapy_items'
 
 IMAGES_STORE = 'images'
 IMAGES_THUMBS = {

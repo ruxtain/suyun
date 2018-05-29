@@ -7,6 +7,8 @@ Why this is called 'suyun'? What does it mean? I wrote this spider because one o
 
 It's based on scrapy and a proxy pool named [proxy_pool](https://github.com/jhao104/proxy_pool). It runs the proxy pool locally to get free proxies and feed it to the spider through an API.
 
+Please note that suyun is only for Amazon US. In the future I'll make it be adaptive to other European countries.
+
 # Try it out
 
 ```
@@ -14,7 +16,7 @@ It's based on scrapy and a proxy pool named [proxy_pool](https://github.com/jhao
 # Then you need set up the database in settings.py
 MONGO_URI = 'mongodb://localhost:27017'
 MONGO_DATABASE = 'suyun'
-# Run it in commandline
+# Run it in command line
 scrapy crawl amazon
 # After it's done, you can output a spreadsheet
 python cook.py

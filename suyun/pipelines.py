@@ -15,8 +15,6 @@ import logging
 
 class SuyunPipeline(object):
 
-    collection_name = 'scrapy_items'
-
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
@@ -25,7 +23,8 @@ class SuyunPipeline(object):
     def from_crawler(cls, crawler):
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE', 'suyun')
+            mongo_db=crawler.settings.get('MONGO_DATABASE'),
+            mongo_collection=crawler.settings.get('MONGO_COLLECTION')
         )
 
     def open_spider(self, spider):
@@ -42,11 +41,11 @@ class SuyunPipeline(object):
         item = dict(item)
 
         # update if already exists, insert if not
-        if self.db[self.collection_name].find_one({'asin':item['asin']}):
-            self.db[self.collection_name].update_one({'asin':item['asin']}, {'$set': item})
+        if self.db[self.mongo_collection].find_one({'asin':item['asin']}):
+            self.db[self.mongo_collection].update_one({'asin':item['asin']}, {'$set': item})
             logging.info("*** UPDATED ***")
         else:
-            self.db[self.collection_name].insert_one(item)
+            self.db[self.mongo_collection].insert_one(item)
             logging.info("*** INSERTED ***")
         return item
 
