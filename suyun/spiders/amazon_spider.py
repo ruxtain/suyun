@@ -37,7 +37,7 @@ class AmazonSpider(scrapy.Spider):
     }
 
     def start_requests(self):
-        start_urls = ['https://www.amazon.com/s/ref=nb_sb_noss?url=me%3DA2G697YVFPFSPH&field-keywords=']
+        start_urls = ['https://www.amazon.com/s/ref=sr_nr_p_4_0?me=AY5XLL1NQPR7O&fst=as%3Aoff&rh=p_4%3ASUAOKI&ie=UTF8&qid=1527750475']
         headers = get_headers()
         for url in start_urls:
             yield scrapy.Request(url=url, callback=self.parse)

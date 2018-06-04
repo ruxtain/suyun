@@ -15,9 +15,10 @@ import logging
 
 class SuyunPipeline(object):
 
-    def __init__(self, mongo_uri, mongo_db):
+    def __init__(self, mongo_uri, mongo_db, mongo_collection):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
+        self.mongo_collection = mongo_collection
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -30,6 +31,7 @@ class SuyunPipeline(object):
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
+        self.db.create_collection(self.mongo_collection) # give a new name for each spider ...
 
     def close_spider(self, spider):
         self.client.close()

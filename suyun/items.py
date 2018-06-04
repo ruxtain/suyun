@@ -101,6 +101,7 @@ def load_amazon_item(loader):
     loader.add_xpath('title', '//span[@id="productTitle"]/text()', lambda s:s[0].strip())
     loader.add_xpath('star', '//*[@id="acrPopover"]/span[1]/a/i[1]/span/text()', TakeFirst(), re='([\d.]+)\s')
     loader.add_xpath('asin', '//link[@rel="canonical"]/@href', re='dp/([A-Z\d]{10})')
+    loader.add_xpath('link', '//link[@rel="canonical"]/@href')
     loader.add_xpath('review', '//span[@id="acrCustomerReviewText"]/text()', TakeFirst(), lambda i:i.replace(',', ''), re='[\d,]+')
     loader.add_xpath('price', '//span[@id="priceblock_ourprice"]/text()')
     loader.add_xpath('date', '//table[@id="productDetails_detailBullets_sections1"]/tr/th[contains(text(), "Date first listed on Amazon")]/following-sibling::td[1]/text()', get_field_date)

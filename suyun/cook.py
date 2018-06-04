@@ -16,17 +16,16 @@ def make_xlsx(cursor):
     '''
     '''
     def get_data(item, field):
+        print(settings.IMAGES_STORE)
         if field == 'images':
             try:
                 full_path = item['images'][0]['path']
                 image_name = os.path.basename(full_path)
-                thumb_path = os.path.join('images/thumbs/big', image_name)
+                thumb_path = os.path.join(settings.IMAGES_STORE, 'thumbs/big', image_name)
             except IndexError and KeyError:
-                 thumb_path ='images/default.jpg'
+                 thumb_path = os.path.join(settings.IMAGES_STORE, 'default.jpg')
             img = Image(thumb_path)
             return img
-        elif field == 'link':
-            return 'https://www.amazon.com/dp/{}'.format(item.get('asin', [None])[0])
         elif field == 'date':
             d = item.get(field, [' '])[0]
             if d:
@@ -72,7 +71,7 @@ def make_xlsx(cursor):
     ws.column_dimensions["I"].width = 15
     ws.column_dimensions["K"].width = 15
     ws.column_dimensions["M"].width = 15
-    filename = '{} Competitor Data.xlsx'.format(brand)
+    filename = '{} Store Data.xlsx'.format(brand)
     wb.save(filename=filename)
     os.startfile(filename)
 
