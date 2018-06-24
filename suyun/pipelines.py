@@ -31,7 +31,10 @@ class SuyunPipeline(object):
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
-        self.db.create_collection(self.mongo_collection) # give a new name for each spider ...
+        try:
+            self.db.create_collection(self.mongo_collection) # give a new name for each spider ...
+        except pymongo.errors.CollectionInvalid:
+            pass
 
     def close_spider(self, spider):
         self.client.close()
