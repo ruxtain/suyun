@@ -5,7 +5,7 @@ Why this is called 'suyun'? What does it mean? I wrote this spider because one o
 
 # How it works
 
-It's based on scrapy and a proxy pool named [proxy_pool](https://github.com/jhao104/proxy_pool). It runs the proxy pool locally to get free proxies and feed it to the spider through an API.
+It's based on scrapy and a proxy pool named [proxy_pool](https://github.com/ruxtain/proxy_pool). It runs the proxy pool locally to get free proxies and feed it to the spider through an API.
 
 Please note that suyun is only for Amazon US. In the future I might make it be adaptive to other European countries.
 
