@@ -8,6 +8,7 @@
 from scrapy import signals
 import requests
 import random
+import json
 
 class ProxiesMiddleware(object):
     def __init__(self, settings):
@@ -19,8 +20,11 @@ class ProxiesMiddleware(object):
 
     def process_request(self, request, spider):
         # 通过一个开源项目获取 proxy
-        proxy = requests.get('http://127.0.0.1:5001', timeout=1).text
-        print('*** USING PROXY: ***', proxy)
+        proxy = requests.get('http://127.0.0.1:5001/get', timeout=1).text
+        proxy = json.loads(proxy)['value']
+
+        # proxy = requests.get('http://123.207.35.36:5010/get', timeout=2).text
+        # print('*** USING PROXY: ***', proxy)
         request.meta['proxy'] = "http://" + proxy
 
 class UserAgentMiddleware(object):

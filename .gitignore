@@ -2,10 +2,9 @@
 *.xlsx
 *.xls
 tests/
-images/full/
-images/thumbs/
+data/images/full/
+data/images/thumbs/
 .DS_Store
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

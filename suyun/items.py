@@ -116,8 +116,9 @@ def load_amazon_item(loader):
     loader.add_xpath('fba', '//a[@id="SSOFpopoverLink"]/text()', lambda i:'Fulfilled by Amazon' in i)
     return loader.load_item()      
 
+
+############# testing ##############
 def main():
-    ''' only for testing '''
     import os
     from scrapy.http import Response, Request, TextResponse
     from scrapy.loader import ItemLoader

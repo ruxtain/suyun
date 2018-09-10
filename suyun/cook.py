@@ -1,5 +1,7 @@
 # export data to a human-readable form
 
+# TODO 需要进一步完善
+
 from openpyxl import Workbook
 import pymongo
 from openpyxl.drawing.image import Image
@@ -16,14 +18,16 @@ def make_xlsx(cursor):
     '''
     '''
     def get_data(item, field):
-        print(settings.IMAGES_STORE)
+
+        root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
         if field == 'images':
             try:
                 full_path = item['images'][0]['path']
                 image_name = os.path.basename(full_path)
-                thumb_path = os.path.join(settings.IMAGES_STORE, 'thumbs/big', image_name)
+                thumb_path = os.path.join(root_path, settings.IMAGES_STORE, 'thumbs/big', image_name)
             except IndexError and KeyError:
-                 thumb_path = os.path.join(settings.IMAGES_STORE, 'default.jpg')
+                 thumb_path = os.path.join(root_path, settings.IMAGES_STORE, 'default.jpg')
             img = Image(thumb_path)
             return img
         elif field == 'date':
@@ -38,7 +42,7 @@ def make_xlsx(cursor):
 
     wb = Workbook()
     ws = wb.active
-    ws.title = "Competitor ASIN Data - Michael Tan"
+    ws.title = "ASIN Data - Michael Tan"
     ws.append(['Image', 'ASIN', 'URL', 'Price','Title', 'Date', 'Big Category', 'Big Rank', 'Small Category 1', 'Small Rank 1', 'Small Category 2', 'Small Rank 2', 'Small Category 3', 'Small Rank 3', 'Review', 'Star', 'FBA'])
     i = 2
     for item in cursor:
@@ -73,6 +77,9 @@ def make_xlsx(cursor):
     ws.column_dimensions["M"].width = 15
     filename = '{} Store Data.xlsx'.format(brand)
     wb.save(filename=filename)
-    os.startfile(filename)
+    try:
+        os.startfile(filename) # win
+    except AttributeError:
+        os.system("open \"{}\"".format(filename)) # mac
 
 make_xlsx(get_cursor())
