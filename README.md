@@ -1,8 +1,6 @@
 suyun
 ======
 
-Why this is called 'suyun'? What does it mean? I wrote this spider because one of my former colleagues asked me to help her. And her name is suyun. 
-
 # How it works
 
 It's based on scrapy and a proxy pool named [proxy_pool](https://github.com/ruxtain/proxy_pool). It runs the proxy pool locally to get free proxies and feed it to the spider through an API.
